@@ -1,0 +1,284 @@
+<input type="number" #id>
+<button (click)="get_contacts(id.value) " class="btn btn-info">GET contacts</button>
+<button (click)="add_contacts() " class="btn btn-info">ADD contacts</button>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title ">ContactsList</h4>
+        <p class="card-category">All your contacts will display here!</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table" style="font-size: 14px;">
+
+            <thead class="text-primary" >
+
+              <th style="font-size: 14px;">Id</th>
+              <th style="font-size: 14px;">FirstName</th>
+              <th style="font-size: 14px;">LastName</th>
+              <th style="font-size: 14px;">Avatar</th>
+              <th style="font-size: 14px;">actions</th>
+
+
+            </thead>
+            <tbody>
+              <tr *ngFor="let contact of  contacts">
+                <td>{{contact.id}}</td>
+                <td>{{contact.first_name}} {{contact.last_name}}</td>                                            
+                <td><button (click)="get_address(contact.id,contact.first_name,contact.last_name,contact.avatar) " class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View</button></td>
+                <td><button  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalAdd">ADD</button></td>
+                <td><button (click)="get_address(contact.id)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalupdate">Modify</button></td>
+                <td><button (click)="get_address(contact.id)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModaldelete">Delete</button></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+<div *ngIf="clicked">
+  <div class="form-group">
+    <label for="txtId">Id:</label>
+    <input type="text" id="txtId" placeholder="Enter your Id" [(ngModel)]="contactinfo.id" class="form-control">
+
+  </div>
+  <div class="form-group">
+    <label for="name">First Name:</label>
+    <input type="text" id="txtFName" name="txtFName" placeholder="Enter your FirstName"
+      [(ngModel)]="contactinfo.first_name" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="username">Last Name:</label>
+    <input type="text" id="txtLName" name="txtLName" placeholder="Enter your Lastname"
+      [(ngModel)]="contactinfo.last_name" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="Avatar">Avatar:</label>
+    <input type="text" id="txtAvatar" name="txtAvatar" placeholder="Enter your Avatar" [(ngModel)]="contactinfo.avatar"
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <button (click)="save_contacts() " class="btn btn-info">SAVE contacts</button>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModalAdd" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Address</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+        <span>You can add your address here.</span>  <span></span><span></span><span></span><span></span>
+        <label for="txtEmail">Id:</label>
+          <label for="txtEmail">Id:</label>
+          <input type="email" id="txtId" placeholder="Enter your Id" [(ngModel)]="addressinfo.id" class="form-control">
+
+        </div>
+        <div class="form-group">
+          <label for="name">Street1:</label>
+          <input type="text" id="txtFName" name="txtFName" placeholder="Enter your FirstName"
+            [(ngModel)]="addressinfo.street1" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="username">Street2:</label>
+          <input type="text" id="txtLName" name="txtLName" placeholder="Enter your Lastname"
+            [(ngModel)]="addressinfo.street2" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="Avatar">Town:</label>
+          <input type="text" id="txtAvatar" name="txtAvatar" placeholder="Enter your Avatar"
+            [(ngModel)]="addressinfo.town" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="Avatar">Country:</label>
+          <input type="text" id="txtAvatar" name="txtAvatar" placeholder="Enter your Avatar"
+            [(ngModel)]="addressinfo.country" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="Avatar">ContactId:</label>
+          <input type="text" id="txtAvatar" name="txtAvatar" placeholder="Enter your Avatar"
+            [(ngModel)]="addressinfo.contactId" class="form-control">
+        </div>
+
+
+        <div class="form-group">
+          <button (click)="save_address()" class="btn btn-info">SAVE</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Address</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table">
+            <tr><td> Id: {{cdetails.id}}</td></tr>
+            <tr><td> Firstname: {{cdetails.first_name}}</td></tr>
+            <tr><td> Lastname: {{cdetails.last_name}}</td></tr>
+            <tr><td> Avatar: {{cdetails.avatar}}</td></tr>
+            </table>
+       
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Street1</th>
+              <th>Street2</th>
+              <th>Town</th>
+              <th>Country</th>
+              <th>ContactId</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let address of  addresslist">
+              <td>{{address.id}}</td>
+              <td>{{address.street1}}</td>
+              <td>{{address.street2}}</td>
+              <td>{{address.town}}</td>
+              <td>{{address.country}}</td>
+              <td>{{address.contactId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModalupdate" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">update Address</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Street1</th>
+                  <th>Street2</th>
+                  <th>Town</th>
+                  <th>Country</th>
+                  <th>ContactId</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let address of  addresslist">
+                  <td><input type="text" id="txtId"  placeholder="Enter your Id" [(ngModel)]="address.id" class="form-control" readonly></td>
+                  <td><input type="text" id="txtStreet1"  placeholder="Enter your Id" [(ngModel)]="address.street1" class="form-control"></td>
+                  <td><input type="text" id="txtStreet2"  placeholder="Enter your Id" [(ngModel)]="address.street2" class="form-control"></td>
+                  <td><input type="text" id="txtTown"  placeholder="Enter your Id" [(ngModel)]="address.town" class="form-control"></td>
+                  <td><input type="text" id="txtCountry"  placeholder="Enter your Id" [(ngModel)]="address.country" class="form-control"></td>
+                  <td><input type="text" id="txtContact"  placeholder="Enter your Id" [(ngModel)]="address.contactId" class="form-control" readonly></td>
+                  <button type="button" (click)="update_address(address.id)"class="btn btn-info" data-dismiss="modal">update</button>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+    
+    
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModaldelete" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">delete Address</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Street1</th>
+                  <th>Street2</th>
+                  <th>Town</th>
+                  <th>Country</th>
+                  <th>ContactId</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let address of  addresslist">
+                  <td><input type="text" id="txtId"  placeholder="Enter your Id" [(ngModel)]="address.id" class="form-control"  readonly></td>
+                  <td><input type="text" id="txtStreet1"  placeholder="Enter your Id" [(ngModel)]="address.street1" class="form-control"  readonly></td>
+                  <td><input type="text" id="txtStreet2"  placeholder="Enter your Id" [(ngModel)]="address.street2" class="form-control"  readonly></td>
+                  <td><input type="text" id="txtTown"  placeholder="Enter your Id" [(ngModel)]="address.town" class="form-control"  readonly></td>
+                  <td><input type="text" id="txtCountry"  placeholder="Enter your Id" [(ngModel)]="address.country" class="form-control"  readonly></td>
+                  <td><input type="text" id="txtContact"  placeholder="contact id" [(ngModel)]="address.contactid" class="form-control" readonly></td>
+                  <button type="button" (click)="delete_address(address.id)"class="btn btn-info" data-dismiss="modal">delete</button>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+    
+    
+  </div>
+</div>

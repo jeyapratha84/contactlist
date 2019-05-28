@@ -1,0 +1,65 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="wrapper ">
+  <div class="sidebar" data-color="purple" data-background-color="white" data-image="/assets/theme/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+      <a class="simple-text logo-normal">
+        CONTACT DP
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="nav-item active  ">
+          <a class="nav-link" routerLink="/homeprofile"> <i class="material-icons">home</i>
+            <p>Home</p>
+          </a>
+
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" routerLink="/contactprofile">
+            <i class="material-icons">contacts</i>
+            <p>Contacts</p>
+          </a>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+  <div class="main-panel">
+    <!-- Navbar -->
+
+    <!-- End Navbar -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <footer class="footer">
+      <div class="container-fluid">
+        <nav class="float-left">
+          <ul>
+            <li>
+              CONTACT DP
+            </li>
+
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+          </ul>
+        </nav>
+        <div class="copyright float-right">
+          &copy;
+          made with <i class="material-icons">favorite</i> by
+          CONTACT DP
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
